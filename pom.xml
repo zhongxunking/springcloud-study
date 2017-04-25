@@ -19,6 +19,7 @@
         <module>eureka-server</module>
         <module>compute-service</module>
         <module>eureka-ribbon</module>
+        <module>eureka-feign</module>
     </modules>
 
     <dependencyManagement>

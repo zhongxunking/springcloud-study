@@ -18,6 +18,7 @@ import org.springframework.web.client.RestTemplate;
  *
  */
 @RestController
+@RequestMapping("/consumer/ribbon")
 public class ConsumerController {
 
     @Autowired
