@@ -25,12 +25,12 @@ public class ConsumerController {
 
     @HystrixCommand(fallbackMethod = "addErr")
     @RequestMapping("/add")
-    public String add() {
-        return restTemplate.getForEntity("http://compute-service/compute/add?a=10&b=20", Integer.class).getBody().toString();
+    public Integer add() {
+        return restTemplate.getForEntity("http://compute-service/compute/add?a=10&b=20", Integer.class).getBody();
     }
 
-    public String addErr() {
-        return "调用底层服务出错";
+    public Integer addErr() {
+        return -999;
     }
 
 }
