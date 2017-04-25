@@ -8,23 +8,29 @@
  */
 package com.zhongxun.study.controller;
 
-import com.zhongxun.study.service.ComputeService;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 /**
  *
  */
 @RestController
-@RequestMapping("/consumer/ribbon")
+@RequestMapping("/consumer/ribbon/hystrix")
 public class ConsumerController {
     @Autowired
-    private ComputeService computeService;
+    private RestTemplate restTemplate;
 
+    @HystrixCommand(fallbackMethod = "addErr")
     @RequestMapping("/add")
-    public Integer add() {
-        return computeService.add();
+    public String add() {
+        return restTemplate.getForEntity("http://compute-service/compute/add?a=10&b=20", Integer.class).getBody().toString();
+    }
+
+    public String addErr() {
+        return "调用底层服务出错";
     }
 
 }

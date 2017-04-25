@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 /**
  *
  */
-@FeignClient("compute-service")
-@RequestMapping("/compute")
+@FeignClient(name = "compute-service", fallback = ComputeClientHystrix.class)
+//@RequestMapping("/compute")
 public interface ComputeClient {
 
-    @RequestMapping("/add")
+    @RequestMapping("/compute/add")
     Integer add(@RequestParam("a") Integer a, @RequestParam("b") Integer b);
 
 }
